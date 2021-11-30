@@ -1,0 +1,7 @@
+{
+  "name": "sippp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
