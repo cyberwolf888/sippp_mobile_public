@@ -17,6 +17,6 @@ export class AppComponent {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   public appName = environment.appName;
-  public appLabel = 'Bagian Administrasi Pembangunan';
+  public appLabel = environment.appLabel;
   constructor() {}
 }

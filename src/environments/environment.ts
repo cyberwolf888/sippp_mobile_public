@@ -4,7 +4,9 @@
 
 export const environment = {
     production: false,
-    appName: 'SIPPP Mobile'
+    appName: 'SIPPP Mobile',
+    appLabel: 'Bagian Administrasi Pembangunan',
+    apiServer: 'https://e-pembangunan.badungkab.go.id/api/'
 };
 
 /*
