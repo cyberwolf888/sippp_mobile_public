@@ -28,6 +28,11 @@ export class ListKegiatanPage implements OnInit {
     
   }
 
+  async listRekening(id_prog: String, kd_prog: String, kd_keg: String) {
+    console.log(`List rekening ${ id_prog } - ${ kd_prog } - ${ kd_keg }`);
+    
+  }
+
   async getDataKegiatan() {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
@@ -49,9 +54,15 @@ export class ListKegiatanPage implements OnInit {
       // console.log(response);
       if(response['status'] === 1){
         this.list_kegiatan = response['data'];
-        console.log(this.list_kegiatan);
+        // console.log(this.list_kegiatan);
       }
       await loading.dismiss();
     });
+  }
+
+  formatUang(uang: String) {
+    let str = uang.slice(0, -3);
+    str = parseInt(str).toLocaleString('en-US', {style: 'decimal'}).replace(/,/g, '.');
+    return str;
   }
 }
