@@ -14,20 +14,17 @@ import { Router } from '@angular/router';
 export class ListKegiatanPage implements OnInit {
   public appName = environment.appName;
   public list_kegiatan: any;
+  public keyword: String;
   
   constructor(
     private storage: StorageService,
     private http: HttpClient,
-    public loadingController: LoadingController,
-    private router: Router
-  ) { }
+    private router: Router,
+    public loadingController: LoadingController
+  ) {  }
 
   async ngOnInit() {
     await this.getDataKegiatan();
-  }
-
-  async ionViewWillEnter() {
-    
   }
 
   async listRekening(id_prog: String, kd_prog: String, kd_keg: String) {
@@ -69,5 +66,10 @@ export class ListKegiatanPage implements OnInit {
     let str = uang.slice(0, -3);
     str = parseInt(str).toLocaleString('en-US', {style: 'decimal'}).replace(/,/g, '.');
     return str;
+  }
+
+  async searchData(){
+    console.log(`search : ${ this.keyword }`);
+    
   }
 }

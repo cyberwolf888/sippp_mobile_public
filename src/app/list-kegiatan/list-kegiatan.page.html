@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
       </ion-buttons>
@@ -8,6 +9,7 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar [(ngModel)]="keyword" placeholder="Cari Kegiatan" animated="true" enterkeyhint="search" mode="ios" (search)="searchData()"></ion-searchbar>
   <ion-list lines="full" class="ion-no-margin">
       <ion-item  *ngFor="let kegiatan of list_kegiatan; let i = index" (click)="listRekening(kegiatan.ID_Prog, kegiatan.Kd_Prog, kegiatan.Kd_Keg)">
         <ion-label class="ion-text-wrap"> {{ kegiatan.Ket_Kegiatan }} <br> {{ formatUang(kegiatan.total_induk) }}</ion-label>
