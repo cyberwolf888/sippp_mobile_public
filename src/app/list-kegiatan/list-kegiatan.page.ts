@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class ListKegiatanPage implements OnInit {
   constructor(
     private storage: StorageService,
     private http: HttpClient,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private router: Router
   ) { }
 
   async ngOnInit() {
@@ -29,8 +31,11 @@ export class ListKegiatanPage implements OnInit {
   }
 
   async listRekening(id_prog: String, kd_prog: String, kd_keg: String) {
-    console.log(`List rekening ${ id_prog } - ${ kd_prog } - ${ kd_keg }`);
-    
+    // console.log(`List rekening ${ id_prog } - ${ kd_prog } - ${ kd_keg }`);
+    this.storage.set('id_prog', id_prog);
+    this.storage.set('kd_prog', kd_prog);
+    this.storage.set('kd_keg', kd_keg);
+    this.router.navigateByUrl('/list-rekening');
   }
 
   async getDataKegiatan() {

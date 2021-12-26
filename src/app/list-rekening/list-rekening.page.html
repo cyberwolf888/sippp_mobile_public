@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ListRekening</ion-title>
+    <ion-title>{{ pageTitle }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-item  *ngFor="let rekening of list_rekening; let i = index" >
+        <ion-label class="ion-text-wrap"> {{ rekening.Nm_Rek_5 }} <br> {{ formatUang(rekening.total_induk) }}</ion-label>
+        <ion-icon name="chevron-forward-outline" size="large" slot="end"></ion-icon>
+      </ion-item>
+  </ion-list>
 </ion-content>
