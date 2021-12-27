@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'list-rekening',
     loadChildren: () => import('./list-rekening/list-rekening.module').then( m => m.ListRekeningPageModule)
+  },  {
+    path: 'detail-rekening',
+    loadChildren: () => import('./detail-rekening/detail-rekening.module').then( m => m.DetailRekeningPageModule)
   }
+
 
 
 ];

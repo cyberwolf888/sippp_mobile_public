@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list lines="full" class="ion-no-margin">
-      <ion-item  *ngFor="let rekening of list_rekening; let i = index" >
+      <ion-item  *ngFor="let rekening of list_rekening; let i = index" (click)="detailRekening(rekening.Kd_Rek_1,rekening.Kd_Rek_2,rekening.Kd_Rek_3,rekening.Kd_Rek_4,rekening.Kd_Rek_5)" >
         <ion-label class="ion-text-wrap"> {{ rekening.Nm_Rek_5 }} <br> {{ formatUang(rekening.total_induk) }}</ion-label>
         <ion-icon name="chevron-forward-outline" size="large" slot="end"></ion-icon>
       </ion-item>

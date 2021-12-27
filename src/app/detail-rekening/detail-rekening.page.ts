@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-list-rekening',
-  templateUrl: './list-rekening.page.html',
-  styleUrls: ['./list-rekening.page.scss'],
+  selector: 'app-detail-rekening',
+  templateUrl: './detail-rekening.page.html',
+  styleUrls: ['./detail-rekening.page.scss'],
 })
-export class ListRekeningPage implements OnInit {
-  public pageTitle = `List Rekening`;
-  public list_rekening: any;
+export class DetailRekeningPage implements OnInit {
+  public pageTitle = `Detail Rekening`;
+  public detail_rekening: any;
 
   constructor(
     private storage: StorageService,
@@ -22,16 +22,16 @@ export class ListRekeningPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.getDataRekening();
+    await this.getDataDetailRekening();
   }
 
-  async getDataRekening() {
+  async getDataDetailRekening() {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
     await loading.present();
 
-    const endpoint  = environment.apiServer + 'kegiatan/rekening/';
+    const endpoint  = environment.apiServer + 'kegiatan/rekening/detail/';
     const kd_urusan = await this.storage.get('kd_urusan');
     const kd_bidang = await this.storage.get('kd_bidang');
     const kd_unit = await this.storage.get('kd_unit');
@@ -39,6 +39,11 @@ export class ListRekeningPage implements OnInit {
     const id_prog = await this.storage.get('id_prog');
     const kd_prog = await this.storage.get('kd_prog');
     const kd_keg = await this.storage.get('kd_keg');
+    const kd_rek_1 = await this.storage.get('kd_rek_1');
+    const kd_rek_2 = await this.storage.get('kd_rek_2');
+    const kd_rek_3 = await this.storage.get('kd_rek_3');
+    const kd_rek_4 = await this.storage.get('kd_rek_4');
+    const kd_rek_5 = await this.storage.get('kd_rek_5');
     // console.log(`List rekening ${ id_prog } - ${ kd_prog } - ${ kd_keg }`);
 
     this.http.post(endpoint, {
@@ -48,29 +53,19 @@ export class ListRekeningPage implements OnInit {
       kd_sub: kd_sub,
       id_prog: id_prog,
       kd_prog: kd_prog,
-      kd_keg: kd_keg
+      kd_keg: kd_keg,
+      kd_rek_1: kd_rek_1,
+      kd_rek_2: kd_rek_2,
+      kd_rek_3: kd_rek_3,
+      kd_rek_4: kd_rek_4,
+      kd_rek_5: kd_rek_5
     }).subscribe(async (response) => {
       // console.log(response);
       if(response['status'] === 1){
-        this.list_rekening = response['data'];
-        console.log(this.list_rekening);
+        this.detail_rekening = response['data'];
+        console.log(this.detail_rekening);
       }
       await loading.dismiss();
     });
-  }
-
-  formatUang(uang: String) {
-    let str = uang.slice(0, -3);
-    str = parseInt(str).toLocaleString('en-US', {style: 'decimal'}).replace(/,/g, '.');
-    return str;
-  }
-
-  async detailRekening(kd_rek_1: String, kd_rek_2: String, kd_rek_3: String, kd_rek_4: String, kd_rek_5: String) {
-    this.storage.set('kd_rek_1', kd_rek_1);
-    this.storage.set('kd_rek_2', kd_rek_2);
-    this.storage.set('kd_rek_3', kd_rek_3);
-    this.storage.set('kd_rek_4', kd_rek_4);
-    this.storage.set('kd_rek_5', kd_rek_5);
-    this.router.navigateByUrl('/detail-rekening');
   }
 }

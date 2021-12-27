@@ -1,5 +1,9 @@
 import { environment } from './../environments/environment';
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -7,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
+    { title: 'Profile', url: '/folder/Inbox', icon: 'person' },
     // { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
     // { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
     // { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
@@ -18,5 +22,11 @@ export class AppComponent {
 
   public appName = environment.appName;
   public appLabel = environment.appLabel;
-  constructor() {}
+  constructor(private storage: Storage,private router: Router) {}
+
+  async logout() {
+    console.log('logout');
+    await this.storage.clear();
+    this.router.navigateByUrl('/login');
+  }
 }
