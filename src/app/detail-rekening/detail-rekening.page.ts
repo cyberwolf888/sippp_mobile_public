@@ -4,6 +4,9 @@ import { StorageService } from '../services/storage.service';
 import { LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { formatNumber } from '@angular/common';
+import { PopoverController } from '@ionic/angular';
+import { DetailRekeningMenuComponent } from '../popovers/detail-rekening-menu/detail-rekening-menu.component';
 
 @Component({
   selector: 'app-detail-rekening',
@@ -13,15 +16,19 @@ import { Router } from '@angular/router';
 export class DetailRekeningPage implements OnInit {
   public pageTitle = `Detail Rekening`;
   public detail_rekening: any;
+  public test: any;
 
   constructor(
     private storage: StorageService,
     public loadingController: LoadingController,
     private http: HttpClient,
     private router: Router,
+    private popover: PopoverController
   ) { }
 
   async ngOnInit() {
+    console.log(this.test);
+    
     await this.getDataDetailRekening();
   }
 
@@ -63,9 +70,35 @@ export class DetailRekeningPage implements OnInit {
       // console.log(response);
       if(response['status'] === 1){
         this.detail_rekening = response['data'];
+        this.test = {name:'Bedebah', age:27};
         console.log(this.detail_rekening);
       }
       await loading.dismiss();
     });
   }
+
+  public printRealisasiFisik(data: string){
+    let numeric = parseFloat(data).toFixed(2);
+    return numeric + '%';
+  }
+
+  public printKeuangan(data: string){
+    if(data === '' || data === null){
+      return 0;
+    }else{
+      let numeric = parseInt(data); 
+      return formatNumber(numeric,'en-US');
+    }
+    
+  }
+
+  async showPopover(ev: Event){
+    const pop = await this.popover.create({
+      component: DetailRekeningMenuComponent,
+      event: ev,
+      translucent: true,
+    });
+    return await pop.present();
+  }
+  
 }

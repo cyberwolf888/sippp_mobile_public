@@ -19,9 +19,7 @@ export class LoginPage implements OnInit {
     private router: Router
   ) { }
 
-  async ngOnInit() {}
-
-  async ionViewWillEnter() {
+  async ngOnInit() {
     const isLogedIn = await this.authService.isLogedIn();
     if(isLogedIn){
       this.router.navigateByUrl('/list-kegiatan');

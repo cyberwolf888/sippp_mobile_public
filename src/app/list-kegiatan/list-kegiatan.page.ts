@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { formatNumber } from '@angular/common';
 
 
 @Component({
@@ -62,10 +63,9 @@ export class ListKegiatanPage implements OnInit {
     });
   }
 
-  formatUang(uang: String) {
-    let str = uang.slice(0, -3);
-    str = parseInt(str).toLocaleString('en-US', {style: 'decimal'}).replace(/,/g, '.');
-    return str;
+  formatUang(uang: string) {
+    let numeric = parseInt(uang); 
+    return formatNumber(numeric,'en-US');
   }
 
   async searchData(){

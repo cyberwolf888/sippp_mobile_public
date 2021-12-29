@@ -4,6 +4,7 @@ import { StorageService } from '../services/storage.service';
 import { LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { formatNumber } from '@angular/common';
 
 @Component({
   selector: 'app-list-rekening',
@@ -59,10 +60,9 @@ export class ListRekeningPage implements OnInit {
     });
   }
 
-  formatUang(uang: String) {
-    let str = uang.slice(0, -3);
-    str = parseInt(str).toLocaleString('en-US', {style: 'decimal'}).replace(/,/g, '.');
-    return str;
+  formatUang(uang: string) {
+    let numeric = parseInt(uang); 
+    return formatNumber(numeric,'en-US');
   }
 
   async detailRekening(kd_rek_1: String, kd_rek_2: String, kd_rek_3: String, kd_rek_4: String, kd_rek_5: String) {
