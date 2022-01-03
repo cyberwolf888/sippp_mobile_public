@@ -14,7 +14,10 @@ import { formatNumber } from '@angular/common';
 export class ListRekeningPage implements OnInit {
   public pageTitle = `List Rekening`;
   public list_rekening: any;
-
+  public nama_keg: any;
+  public pagu_induk: any;
+  public pagu_perubahan: any;
+  
   constructor(
     private storage: StorageService,
     public loadingController: LoadingController,
@@ -23,6 +26,10 @@ export class ListRekeningPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.nama_keg = await this.storage.get('nama_keg');
+    this.pagu_induk = await this.storage.get('pagu_induk');
+    this.pagu_perubahan = await this.storage.get('pagu_perubahan');
+
     await this.getDataRekening();
   }
 

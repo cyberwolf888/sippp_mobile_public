@@ -11,8 +11,20 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="keyword" placeholder="Cari Kegiatan" animated="true" enterkeyhint="search" mode="ios" (search)="searchData()"></ion-searchbar>
   <ion-list lines="full" class="ion-no-margin">
-      <ion-item  *ngFor="let kegiatan of list_kegiatan; let i = index" button detail (click)="listRekening(kegiatan.ID_Prog, kegiatan.Kd_Prog, kegiatan.Kd_Keg)">
-        <ion-label class="ion-text-wrap"> {{ kegiatan.Ket_Kegiatan }} <br> {{ formatUang(kegiatan.total_induk) }}</ion-label>
+      <ion-item  *ngFor="let kegiatan of list_kegiatan; let i = index" button detail (click)="listRekening(i)">
+        <ion-label class="ion-text-wrap">
+          <h3> {{ kegiatan.Kd_Urusan }}.{{ kegiatan.Kd_Bidang }}.{{ kegiatan.Kd_Unit }}.{{ kegiatan.Kd_Sub }}.{{ kegiatan.Kd_Prog }}.{{ kegiatan.Kd_Keg }} </h3> 
+          <h3> {{ kegiatan.Ket_Kegiatan }} </h3>
+          <ion-text color="primary"><h2>{{ formatUang(kegiatan.total_induk,kegiatan.total_perubahan) }}</h2></ion-text>
+          <div *ngIf="kegiatan.total_perubahan == '0.00'; then perubahan; else induk"></div>
+          <ng-template #perubahan>
+            <ion-badge color="warning">Perubahan</ion-badge>&nbsp;
+          </ng-template>
+          <ng-template #induk>
+            <ion-badge color="success" #perubahan>Induk</ion-badge>&nbsp;
+          </ng-template>
+          <ion-badge color="danger" *ngIf="kegiatan.total_induk == '0.00' && kegiatan.total_perubahan == '0.00'">Batal</ion-badge>
+        </ion-label>
       </ion-item>
   </ion-list>
 </ion-content>

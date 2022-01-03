@@ -28,11 +28,15 @@ export class ListKegiatanPage implements OnInit {
     await this.getDataKegiatan();
   }
 
-  async listRekening(id_prog: String, kd_prog: String, kd_keg: String) {
+  async listRekening(i) {
     // console.log(`List rekening ${ id_prog } - ${ kd_prog } - ${ kd_keg }`);
-    this.storage.set('id_prog', id_prog);
-    this.storage.set('kd_prog', kd_prog);
-    this.storage.set('kd_keg', kd_keg);
+    const data = this.list_kegiatan[i];
+    this.storage.set('id_prog', data['ID_Prog']);
+    this.storage.set('kd_prog', data['Kd_Prog']);
+    this.storage.set('kd_keg', data['Kd_Keg']);
+    this.storage.set('nama_keg', data['Ket_Kegiatan']);
+    this.storage.set('pagu_induk', data['total_induk']);
+    this.storage.set('pagu_perubahan', data['total_perubahan']);
     this.router.navigateByUrl('/list-rekening');
   }
 
@@ -63,8 +67,12 @@ export class ListKegiatanPage implements OnInit {
     });
   }
 
-  formatUang(uang: string) {
-    let numeric = parseInt(uang); 
+  formatUang(induk: string, perubahan: string) {
+    let numeric = parseInt(induk);
+    if(perubahan !== '0.00'){
+      let numeric = parseInt(perubahan);
+    }
+     
     return formatNumber(numeric,'en-US');
   }
 

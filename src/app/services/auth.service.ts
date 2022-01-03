@@ -4,6 +4,7 @@ import { StorageService } from './storage.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,23 @@ export class AuthService {
     private storage: StorageService,
     private http: HttpClient,
     public toastController: ToastController,
-    private router: Router
+    private router: Router,
+    public loadingController: LoadingController
   ) { }
 
   public async auth(username: string, password: string) {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+
     await this.storage.init();
     const endpoint  = environment.apiServer + 'auth';
     await this.http.post(endpoint, {
       username: username,
       password: password,
     }).subscribe(async (response) => {
+      await loading.dismiss();
       if(response['status'] === 1){
         this.storage.set('foto', response['data']['foto']);
         this.storage.set('id', response['data']['id']);
