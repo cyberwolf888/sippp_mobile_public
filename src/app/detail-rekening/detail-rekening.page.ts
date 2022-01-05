@@ -16,7 +16,8 @@ import { DetailRekeningMenuComponent } from '../popovers/detail-rekening-menu/de
 export class DetailRekeningPage implements OnInit {
   public pageTitle = `Detail Rekening`;
   public detail_rekening: any;
-  public test: any;
+  public isLoading = true;
+
 
   constructor(
     private storage: StorageService,
@@ -27,16 +28,16 @@ export class DetailRekeningPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    console.log(this.test);
     
     await this.getDataDetailRekening();
+
   }
 
   async getDataDetailRekening() {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present();
+    // await loading.present();
 
     const endpoint  = environment.apiServer + 'kegiatan/rekening/detail/';
     const kd_urusan = await this.storage.get('kd_urusan');
@@ -70,10 +71,10 @@ export class DetailRekeningPage implements OnInit {
       // console.log(response);
       if(response['status'] === 1){
         this.detail_rekening = response['data'];
-        this.test = {name:'Bedebah', age:27};
-        console.log(this.detail_rekening);
+        // console.log(this.detail_rekening);
+        this.isLoading = false;
       }
-      await loading.dismiss();
+      // await loading.dismiss();
     });
   }
 

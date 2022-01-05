@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   public appPages = [
+    { title: 'Home', url: '/list-kegiatan', icon: 'home' },
     { title: 'Profile', url: '/folder/Inbox', icon: 'person' },
     // { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
     // { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },

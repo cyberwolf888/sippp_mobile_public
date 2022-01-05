@@ -7,11 +7,46 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <h3 *ngIf="nama_keg">{{ nama_keg }}</h3>
-  <ion-list lines="full" class="ion-no-margin">
+<ion-content fullscreen="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ nama_keg }}</ion-card-title>
+      <ion-card-subtitle class="mt-10">
+        <ion-badge color="success" *ngIf="pagu_perubahan == '0.00' && pagu_induk !== '0.00'">Induk</ion-badge>
+        <ion-badge color="warning" *ngIf="pagu_perubahan !== '0.00'">Perubahan</ion-badge>
+        <ion-badge color="danger" *ngIf="pagu_induk == '0.00' && pagu_perubahan == '0.00'">Batal</ion-badge>
+      </ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-row>
+        <ion-col>Pagu Induk</ion-col>
+        <ion-col><ion-text color="primary">{{ formatUang(pagu_induk) }}</ion-text></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Pagu Perubahan</ion-col>
+        <ion-col><ion-text color="warning">{{ formatUang(pagu_perubahan) }}</ion-text></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <div>
+    <ion-text class="ion-text-center">
+      <h1>Loading...</h1>
+    </ion-text> 
+  </div>
+
+  <div *ngIf="!isLoading">
+    <ion-list lines="full" class="ion-no-margin">
       <ion-item  *ngFor="let rekening of list_rekening; let i = index" button detail (click)="detailRekening(rekening.Kd_Rek_1,rekening.Kd_Rek_2,rekening.Kd_Rek_3,rekening.Kd_Rek_4,rekening.Kd_Rek_5)" >
-        <ion-label class="ion-text-wrap"> {{ rekening.Nm_Rek_5 }} <br> {{ formatUang(rekening.total_induk) }}</ion-label>
+        <ion-label class="ion-text-wrap">
+          <ion-text>{{ rekening.Kd_Rek_1 }}.{{ rekening.Kd_Rek_2 }}.{{ rekening.Kd_Rek_3 }}.{{ rekening.Kd_Rek_4 }}.{{ rekening.Kd_Rek_5 }}</ion-text>
+          <ion-text><h3>{{ rekening.Nm_Rek_5 }}</h3></ion-text>
+          <ion-text color="primary" *ngIf="rekening.total_induk !== '0.00' && rekening.total_perubahan === '0.00' && pagu_perubahan == '0.00'">{{ formatUang(rekening.total_induk) }}</ion-text>
+          <ion-text color="warning" *ngIf="rekening.total_perubahan !== '0.00'" >{{ formatUang(rekening.total_perubahan) }}</ion-text>
+          <ion-text color="danger" *ngIf="(rekening.total_induk === '0.00' && rekening.total_perubahan === '0.00') || (pagu_perubahan !== '0.00' && rekening.total_perubahan === '0.00')" >Batal</ion-text>
+        </ion-label>
       </ion-item>
-  </ion-list>
+    </ion-list>
+  </div>
 </ion-content>

@@ -17,6 +17,7 @@ export class ListRekeningPage implements OnInit {
   public nama_keg: any;
   public pagu_induk: any;
   public pagu_perubahan: any;
+  public isLoading = true;
   
   constructor(
     private storage: StorageService,
@@ -26,10 +27,6 @@ export class ListRekeningPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.nama_keg = await this.storage.get('nama_keg');
-    this.pagu_induk = await this.storage.get('pagu_induk');
-    this.pagu_perubahan = await this.storage.get('pagu_perubahan');
-
     await this.getDataRekening();
   }
 
@@ -37,7 +34,7 @@ export class ListRekeningPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present();
+    // await loading.present();
 
     const endpoint  = environment.apiServer + 'kegiatan/rekening/';
     const kd_urusan = await this.storage.get('kd_urusan');
@@ -47,6 +44,11 @@ export class ListRekeningPage implements OnInit {
     const id_prog = await this.storage.get('id_prog');
     const kd_prog = await this.storage.get('kd_prog');
     const kd_keg = await this.storage.get('kd_keg');
+
+    this.nama_keg = await this.storage.get('nama_keg');
+    this.pagu_induk = await this.storage.get('pagu_induk');
+    this.pagu_perubahan = await this.storage.get('pagu_perubahan');
+    
     // console.log(`List rekening ${ id_prog } - ${ kd_prog } - ${ kd_keg }`);
 
     this.http.post(endpoint, {
@@ -61,9 +63,10 @@ export class ListRekeningPage implements OnInit {
       // console.log(response);
       if(response['status'] === 1){
         this.list_rekening = response['data'];
-        console.log(this.list_rekening);
+        // console.log(this.list_rekening);
+        this.isLoading = false;
       }
-      await loading.dismiss();
+      // await loading.dismiss();
     });
   }
 

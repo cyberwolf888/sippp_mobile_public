@@ -16,6 +16,7 @@ export class ListKegiatanPage implements OnInit {
   public appName = environment.appName;
   public list_kegiatan: any;
   public keyword: String;
+  public isLoading = true;
   
   constructor(
     private storage: StorageService,
@@ -70,7 +71,7 @@ export class ListKegiatanPage implements OnInit {
   formatUang(induk: string, perubahan: string) {
     let numeric = parseInt(induk);
     if(perubahan !== '0.00'){
-      let numeric = parseInt(perubahan);
+      numeric = parseInt(perubahan);
     }
      
     return formatNumber(numeric,'en-US');
@@ -79,5 +80,11 @@ export class ListKegiatanPage implements OnInit {
   async searchData(){
     console.log(`search : ${ this.keyword }`);
     
+  }
+
+  async doRefresh(event) {
+    console.log('Begin async operation');
+    await this.getDataKegiatan();
+    event.target.complete();
   }
 }
