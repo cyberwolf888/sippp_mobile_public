@@ -16,7 +16,6 @@ export class ListKegiatanPage implements OnInit {
   public appName = environment.appName;
   public list_kegiatan: any;
   public keyword: String;
-  public isLoading = true;
   
   constructor(
     private storage: StorageService,
@@ -79,7 +78,14 @@ export class ListKegiatanPage implements OnInit {
 
   async searchData(){
     console.log(`search : ${ this.keyword }`);
-    
+    const query = this.keyword.toLowerCase();
+    requestAnimationFrame(() => {
+      this.list_kegiatan.forEach((item) => {
+        const shouldShow = item.Ket_Kegiatan.toLowerCase().indexOf(query) > -1;
+        item.isHide = shouldShow ? 0 : 1;
+        console.log(item);
+      });
+    });
   }
 
   async doRefresh(event) {

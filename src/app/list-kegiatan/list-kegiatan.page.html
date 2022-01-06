@@ -12,10 +12,12 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-searchbar [(ngModel)]="keyword" placeholder="Cari Kegiatan" animated="true" enterkeyhint="search" mode="ios" (search)="searchData()"></ion-searchbar>
+
+  <ion-searchbar [(ngModel)]="keyword" placeholder="Cari Kegiatan" animated="true" enterkeyhint="search" mode="ios" debounce="500" (ionChange)="searchData()"></ion-searchbar>
   
-  <ion-list lines="full" class="ion-no-margin" *ngIf="!isLoading">
-      <ion-item  *ngFor="let kegiatan of list_kegiatan; let i = index" button detail (click)="listRekening(i)">
+  <ion-list lines="full" class="ion-no-margin" *ngIf="list_kegiatan">
+    <ng-container *ngFor="let kegiatan of list_kegiatan; let i = index">
+      <ion-item button detail (click)="listRekening(i)" *ngIf="!kegiatan.isHide || kegiatan.isHide===0">
         <ion-label class="ion-text-wrap">
           <h3> {{ kegiatan.Kd_Urusan }}.{{ kegiatan.Kd_Bidang }}.{{ kegiatan.Kd_Unit }}.{{ kegiatan.Kd_Sub }}.{{ kegiatan.Kd_Prog }}.{{ kegiatan.Kd_Keg }} </h3> 
           <h3> {{ kegiatan.Ket_Kegiatan }} </h3>
@@ -25,5 +27,6 @@
           <ion-badge color="danger" *ngIf="(kegiatan.total_induk == '0.00' && kegiatan.total_perubahan == '0.00')">Batal</ion-badge>
         </ion-label>
       </ion-item>
+    </ng-container>
   </ion-list>
 </ion-content>

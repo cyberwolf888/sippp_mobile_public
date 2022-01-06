@@ -30,13 +30,19 @@
     </ion-card-content>
   </ion-card>
 
-  <div>
-    <ion-text class="ion-text-center">
-      <h1>Loading...</h1>
-    </ion-text> 
-  </div>
+  <ng-container *ngIf="isLoading">
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item *ngFor="let i of [].constructor(4)">
+        <ion-label class="ion-text-wrap">
+          <ion-text><h3><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text></h3></ion-text>
+          <ion-text><h3><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h3></ion-text>
+          <ion-text><h3><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></h3></ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 
-  <div *ngIf="!isLoading">
+  <ng-container *ngIf="!isLoading">
     <ion-list lines="full" class="ion-no-margin">
       <ion-item  *ngFor="let rekening of list_rekening; let i = index" button detail (click)="detailRekening(rekening.Kd_Rek_1,rekening.Kd_Rek_2,rekening.Kd_Rek_3,rekening.Kd_Rek_4,rekening.Kd_Rek_5)" >
         <ion-label class="ion-text-wrap">
@@ -48,5 +54,5 @@
         </ion-label>
       </ion-item>
     </ion-list>
-  </div>
+  </ng-container>
 </ion-content>
