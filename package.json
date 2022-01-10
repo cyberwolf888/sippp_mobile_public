@@ -1,8 +1,8 @@
 {
-  "name": "sippp",
+  "name": "sippp_mobile",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Bagian Admistrasi Pembangunan Kab. Badung",
+  "homepage": "https://e-pembangunan.badungkab.go.id/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
