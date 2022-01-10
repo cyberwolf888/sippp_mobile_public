@@ -2,9 +2,9 @@ import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
-import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { formatNumber } from '@angular/common';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -13,19 +13,24 @@ import { formatNumber } from '@angular/common';
   styleUrls: ['./list-kegiatan.page.scss'],
 })
 export class ListKegiatanPage implements OnInit {
-  public appName = environment.appName;
+  public appName = 'Daftar Kegiatan';
   public list_kegiatan: any;
   public keyword: String;
+  public isLoading = false;
   
   constructor(
     private storage: StorageService,
+    public loadingController: LoadingController,
     private http: HttpClient,
-    private router: Router,
-    public loadingController: LoadingController
+    private router: Router
   ) {  }
 
   async ngOnInit() {
-    await this.getDataKegiatan();
+    this.getDataKegiatan();
+  }
+
+  async ionViewWillEnter() {
+    
   }
 
   async listRekening(i) {
@@ -44,7 +49,8 @@ export class ListKegiatanPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present();
+
+    this.isLoading = true;
 
     const endpoint  = environment.apiServer + 'kegiatan/list/';
     const kd_urusan = await this.storage.get('kd_urusan');
@@ -63,7 +69,7 @@ export class ListKegiatanPage implements OnInit {
         this.list_kegiatan = response['data'];
         // console.log(this.list_kegiatan);
       }
-      await loading.dismiss();
+      this.isLoading = false;
     });
   }
 
@@ -83,7 +89,7 @@ export class ListKegiatanPage implements OnInit {
       this.list_kegiatan.forEach((item) => {
         const shouldShow = item.Ket_Kegiatan.toLowerCase().indexOf(query) > -1;
         item.isHide = shouldShow ? 0 : 1;
-        console.log(item);
+        // console.log(item);
       });
     });
   }

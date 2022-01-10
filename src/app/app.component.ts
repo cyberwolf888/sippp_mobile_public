@@ -2,6 +2,7 @@ import { environment } from './../environments/environment';
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/list-kegiatan', icon: 'home' },
-    { title: 'Profile', url: '/folder/Inbox', icon: 'person' },
+    { title: 'Profile', url: '/profile', icon: 'person' },
     // { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
     // { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
     // { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
@@ -23,7 +24,25 @@ export class AppComponent {
 
   public appName = environment.appName;
   public appLabel = environment.appLabel;
-  constructor(private storage: Storage,private router: Router) {}
+  constructor(private storage: Storage,private router: Router,private authService: AuthService) {}
+
+  async ngOnInit() {
+    await this.upadteNama();
+  }
+
+  async ionViewWillEnter() {
+    
+  }
+
+  async upadteNama() {
+    const isLogedIn = await this.authService.isLogedIn();
+    if(isLogedIn){
+      const nama = await this.storage.get('nama');
+      if(nama !== ''){
+        this.appLabel = nama;
+      }
+    }
+  }
 
   async logout() {
     console.log('logout');

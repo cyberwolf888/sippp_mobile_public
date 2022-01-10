@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
   }
 
   async login(f: NgForm){
-    console.log(f.value.username);
+    // console.log(f.value.username);
     if(f.value.username === '' || f.value.password === ''){
       const toast = await this.toastController.create({
         message: 'Username dan Password tidak boleh kosong',

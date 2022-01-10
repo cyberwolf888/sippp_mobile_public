@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
       </ion-buttons>
@@ -15,18 +14,35 @@
 
   <ion-searchbar [(ngModel)]="keyword" placeholder="Cari Kegiatan" animated="true" enterkeyhint="search" mode="ios" debounce="500" (ionChange)="searchData()"></ion-searchbar>
   
-  <ion-list lines="full" class="ion-no-margin" *ngIf="list_kegiatan">
-    <ng-container *ngFor="let kegiatan of list_kegiatan; let i = index">
-      <ion-item button detail (click)="listRekening(i)" *ngIf="!kegiatan.isHide || kegiatan.isHide===0">
+  <ng-container *ngIf="isLoading == true">
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item *ngFor="let i of [].constructor(10)">
         <ion-label class="ion-text-wrap">
-          <h3> {{ kegiatan.Kd_Urusan }}.{{ kegiatan.Kd_Bidang }}.{{ kegiatan.Kd_Unit }}.{{ kegiatan.Kd_Sub }}.{{ kegiatan.Kd_Prog }}.{{ kegiatan.Kd_Keg }} </h3> 
-          <h3> {{ kegiatan.Ket_Kegiatan }} </h3>
-          <ion-text color="primary"><h2>{{ formatUang(kegiatan.total_induk,kegiatan.total_perubahan) }}</h2></ion-text>
-          <ion-badge color="success" *ngIf="kegiatan.total_perubahan == '0.00' && kegiatan.total_induk !== '0.00'">Induk</ion-badge>
-          <ion-badge color="warning" *ngIf="kegiatan.total_perubahan !== '0.00'">Perubahan</ion-badge>
-          <ion-badge color="danger" *ngIf="(kegiatan.total_induk == '0.00' && kegiatan.total_perubahan == '0.00')">Batal</ion-badge>
+          <ion-text><h3><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text></h3></ion-text>
+          <ion-text><h3><ion-skeleton-text animated style="width: 90%"></ion-skeleton-text></h3></ion-text>
+          <ion-text><h3><ion-skeleton-text animated style="width: 90%"></ion-skeleton-text></h3></ion-text>
+          <ion-text><h3><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h3></ion-text>
+          <ion-text><h3><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></h3></ion-text>
         </ion-label>
       </ion-item>
-    </ng-container>
-  </ion-list>
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="!isLoading">
+    <ion-list lines="full" class="ion-no-margin" *ngIf="list_kegiatan">
+      <ng-container *ngFor="let kegiatan of list_kegiatan; let i = index">
+        <ion-item button detail (click)="listRekening(i)" *ngIf="!kegiatan.isHide || kegiatan.isHide===0">
+          <ion-label class="ion-text-wrap">
+            <h3> {{ kegiatan.Kd_Urusan }}.{{ kegiatan.Kd_Bidang }}.{{ kegiatan.Kd_Unit }}.{{ kegiatan.Kd_Sub }}.{{ kegiatan.Kd_Prog }}.{{ kegiatan.Kd_Keg }} </h3> 
+            <h3> {{ kegiatan.Ket_Kegiatan }} </h3>
+            <ion-text color="primary"><h2>{{ formatUang(kegiatan.total_induk,kegiatan.total_perubahan) }}</h2></ion-text>
+            <ion-badge color="success" *ngIf="kegiatan.total_perubahan == '0.00' && kegiatan.total_induk !== '0.00'">Induk</ion-badge>
+            <ion-badge color="warning" *ngIf="kegiatan.total_perubahan !== '0.00'">Perubahan</ion-badge>
+            <ion-badge color="danger" *ngIf="(kegiatan.total_induk == '0.00' && kegiatan.total_perubahan == '0.00')">Batal</ion-badge>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+  
 </ion-content>

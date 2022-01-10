@@ -13,13 +13,43 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <div *ngIf="isLoading">
-    <ion-text class="ion-text-center">
-      <h1>Loading...</h1>
-    </ion-text> 
-  </div>
+  <ng-container *ngIf="isLoading" >
+    <h3><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></h3>
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item *ngFor="let i of [].constructor(12)">
+        <ion-label>
+          <ion-text color="primary"> <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </ion-text>
+          <ion-row>
+            <ion-col> <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </ion-col>
+            <ion-col> <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text> </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col> <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </ion-col>
+            <ion-col> <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text> </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <h3><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></h3>
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item *ngFor="let i of [].constructor(12)">
+        <ion-label>
+          <ion-text color="primary"> <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </ion-text>
+          <ion-row>
+            <ion-col> <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </ion-col>
+            <ion-col> <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text> </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col> <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </ion-col>
+            <ion-col> <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text> </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
   
-  <div *ngIf="detail_rekening && !isLoading" >
+  <ng-container *ngIf="detail_rekening && !isLoading" >
     <h3>Data Keuangan</h3>
     <ion-list lines="full" class="ion-no-margin">
       <ion-item>
@@ -435,6 +465,6 @@
         </ion-label>
       </ion-item>
     </ion-list>
-  </div>
+  </ng-container>
 
 </ion-content>

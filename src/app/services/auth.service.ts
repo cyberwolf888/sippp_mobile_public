@@ -2,9 +2,8 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { HttpClient } from '@angular/common/http';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'

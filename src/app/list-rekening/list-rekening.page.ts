@@ -12,7 +12,7 @@ import { formatNumber } from '@angular/common';
   styleUrls: ['./list-rekening.page.scss'],
 })
 export class ListRekeningPage implements OnInit {
-  public pageTitle = `List Rekening`;
+  public pageTitle = `Daftar Rekening`;
   public list_rekening: any;
   public nama_keg: any;
   public pagu_induk: any;
