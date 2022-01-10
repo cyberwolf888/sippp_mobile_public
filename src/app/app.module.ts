@@ -15,19 +15,18 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent,DetailRekeningMenuComponent],
-  entryComponents: [],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule,
-    IonicStorageModule.forRoot({
-      name: '__sippp',
-      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
-    })
-  ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent,DetailRekeningMenuComponent],
+    declarations: [AppComponent, DetailRekeningMenuComponent],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        HttpClientModule,
+        IonicStorageModule.forRoot({
+            name: '__sippp',
+            driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+        })
+    ],
+    providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    bootstrap: [AppComponent, DetailRekeningMenuComponent]
 })
 export class AppModule {}
