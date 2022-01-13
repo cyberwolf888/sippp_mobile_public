@@ -3,10 +3,30 @@
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>{{ appName }}</ion-title>
+      <ion-title>{{ pageTitle }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form (ngSubmit)="save()">
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item>
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input [(ngModel)]="profile.nama"  required name="nama"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Nama Lengkap</ion-label>
+        <ion-input [(ngModel)]="profile.username"  required readonly name="username"></ion-input>
+    </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input [(ngModel)]="profile.password" type="password" ngModel required name="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password Confirmation</ion-label>
+        <ion-input [(ngModel)]="profile.password_confirm" type="password" ngModel required name="password_confirm"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block" color="tertiary" class="ml-10 mr-10 mt-10">Simpan</ion-button>
+  </form>
 </ion-content>
