@@ -29,6 +29,14 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'rencana-aksi',
+    loadChildren: () => import('./rencana-aksi/rencana-aksi.module').then( m => m.RencanaAksiPageModule)
+  },
+  {
+    path: 'realisasi-fisik',
+    loadChildren: () => import('./realisasi-fisik/realisasi-fisik.module').then( m => m.RealisasiFisikPageModule)
   }
 
 
